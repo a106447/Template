@@ -10,31 +10,31 @@
  *>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 /* 头文件 ----------------------------------------------------------------*/
 #include<iocc2530.h>
+#define LED1 P1_0     // P1_0定义为P1.0
+#define LED2 P1_1     // P1_1定义为P1.1
+unsigned int temp = 0;
 
-typedef unsigned int UINT;
-typedef unsigned char UCHAR;
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 函数名：Delay
+* 函数名：yanshi
 * 参数：UINT
 * 返回：void
 * 描述：延时函数
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-void Delay(UINT uiDelayMs)
-{
-    UINT uiLoop,uiLoopj;
-      
-    for(uiLoop = 0; uiLoop < uiDelayMs; ++uiLoop)
-    {  
-        for(uiLoopj = 0; uiLoopj < 1000; ++uiLoopj)
-        {
-            asm("NOP");
-            asm("NOP");
-            asm("NOP");
-        }
-    } 
-    
-}
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+void yanshi(unsigned int time)
+{
+  unsigned int i = 0;
+  unsigned int j;
+  for(i = 0; i < time; i++)
+  {
+    for(j = 0; j < 475; j++)
+    { 
+      asm("NOP");   
+      asm("NOP");
+      asm("NOP");
+    } 
+  } 
+}
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * 函数名：main
  * 参数：void
@@ -43,18 +43,15 @@ void Delay(UINT uiDelayMs)
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void main(void)
 {
-    CLKCONCMD &= ~0x40;                          //设置系统时钟源为32MHZ晶振
-    while(CLKCONSTA & 0x40);                     //等待晶振稳定
-    CLKCONCMD &= ~0x47;                          //设置系统主时钟频率为32MHZ
-    
-    P1DIR = 0X01;
-    P1_0  = 1;
-    
-    while(1)
-    {
-        Delay(500);
-        P1_0 ^= 1;
-    }
+  P1SEL &= ~(0x03);
+  P1DIR |= 0x03 ;   
+  while(1)
+  {
+    LED1 = 1;    
+    LED2 = 0;    
+    yanshi(1000);
+    LED1 = 0;    
+    LED2 = 1;     
+    yanshi(1000);
+  }    
 }
-
-

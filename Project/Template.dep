@@ -29,10 +29,6 @@
           <name>BICOMP</name>
           <file> 2</file>
         </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 1</file>
-        </tool>
       </outputs>
     </file>
     <file>

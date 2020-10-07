@@ -58,9 +58,9 @@
           <Factory>TextEditor</Factory>
           <Filename>$WS_DIR$\..\App\main.c</Filename>
           <XPos>0</XPos>
-          <YPos>39</YPos>
-          <SelStart>155</SelStart>
-          <SelEnd>155</SelEnd>
+          <YPos>45</YPos>
+          <SelStart>451</SelStart>
+          <SelEnd>451</SelEnd>
         </Tab>
         <ActiveTab>0</ActiveTab>
       </Pane>
